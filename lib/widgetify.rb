@@ -18,7 +18,7 @@ module Widgetify
       @options = options
       @options[:url] = url
       if @content_type.include?("text")
-        @html_doc = Nokogiri::HTML(open_url)
+        @html_doc = Nokogiri::HTML(open_url, nil, 'utf-8')
         parse_all if args.length == 0
         args.each{ |arg| send(arg.to_sym)} if args.length > 0
       elsif @content_type.include?("image")

@@ -13,7 +13,7 @@ describe Widgetify::Base do
 
   it "checking the title" do
     title = @widgetify.parse_result["oembed"]["title"]
-    title.should == "What Is Hulu Plus? (Hulu Walkthrough)"
+    title.should == "What Is Hulu Plus? (Hulu Guided Tours)"
   end
 
   it "checking the width" do

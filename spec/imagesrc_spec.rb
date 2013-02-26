@@ -3,18 +3,18 @@ require 'spec_helper'
 
 describe Widgetify::Base do
   before :each do
-    @widgetify = Widgetify::Base.new('http://imgur.com/gallery/p6ylj',{ },:parse_html)
+    @widgetify = Widgetify::Base.new('http://imgur.com/gallery/p6ylj', {}, :parse_html)
   end
 
 
   it "checking the title of the url" do
     title = @widgetify.parse_result["html"]["title"]
-    title.should == "\t\t\tI want to know which one of you owns this bar - Imgur\n\t"
+    title.strip.should == "I want to know which one of you owns this bar - Imgur"
   end
 
   it "checking the canonical_url of the url" do
     canonical_url = @widgetify.parse_result["html"]["canonical_url"]
-    canonical_url.should == "/7100571"
+    canonical_url.should == nil
   end
 
   it "checking the description of the url" do

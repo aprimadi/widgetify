@@ -17,14 +17,17 @@ describe Widgetify::Base do
     height.should == "720"
   end
 
-  it "checking the type of the open grpah video protocol" do
+  it "checking the type of the open graph video protocol" do
     type = @widgetify.parse_result["open_graph"]["videos"].first["type"]
     type.should == "application/x-shockwave-flash"
   end
 
   it "checking the url of the open graph video protocol" do
     url = @widgetify.parse_result["open_graph"]["videos"].first["url"]
-    url.should == "http://www.youtube.com/v/IOYyCHGWJq4?version=3&autohide=1"
+    [
+      "http://www.youtube.com/v/IOYyCHGWJq4?autohide=1&version=3",
+      "http://www.youtube.com/v/IOYyCHGWJq4?version=3&autohide=1"
+    ].should include(url)
   end
 
 end

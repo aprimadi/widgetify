@@ -1,12 +1,17 @@
 #Copyright (c) 2012, Kreeti Technologies All Rights Reserved.
 require 'nokogiri'
 require 'open-uri'
+
+require 'widgetify/config'
 require 'parser/oembed_parser'
 require 'parser/open_graph_parser'
 require 'parser/html_parser'
 require 'parser/twitter_parser'
 
 module Widgetify
+  class << self
+    include Widgetify::Config
+  end
 
   class Base
     attr_reader :parse_result

@@ -2,7 +2,9 @@
 
 require 'open-uri'
 require 'json'
+require 'embedly'
 require_relative 'parser'
+
 module Widgetify
   API_END_POINTS = {
     :youtube => 'http://www.youtube.com/oembed',
@@ -24,6 +26,7 @@ module Widgetify
     #:quickmeme => 'http://api.embed.ly/1/oembed',
     :twitter => 'https://api.twitter.com/1/statuses/oembed.'
   }
+
   class OembedParser < Parser
     def initialize(html_doc, options = {})
       super(html_doc)
@@ -51,12 +54,27 @@ module Widgetify
 
     def response_type_not_present
       api = API_END_POINTS[@options[:provider].to_sym] if @options[:provider]
-      api = API_END_POINTS[:embed] unless api
+      api = API_END_POINTS[:embed] if !api && !Widgetify.options[:embedly_key]
       if api
         @link = api[api.length - 1] == '.' ? api.to_s+@options[:format] : api.to_s+"?url="+@options[:url]
         @link +=  "?url="+@options[:url] if @link.include?('json') || @link.include?('xml')
         @link += "&format=" + @options[:format] if @options[:format] && api.scan(@options[:format])
         get_proper_response(@options[:format])
+      else
+        embedly_config = {
+          :user_agent => 'Mozilla/5.0 (compatible; widgetify/1.0; widgetify@email.com)'
+        }
+        embedly_config[:key] = Widgetify.options[:embedly_key] if Widgetify.options[:embedly_key]
+        embedly_config[:user_agent] = Widgetify.options[:embedly_user_agent] if Widgetify.options[:embedly_user_agent]
+
+        embedly_api = Embedly::API.new(embedly_config)
+        params = {:url => @options[:url]}
+        params[:maxwidth] = @options[:maxwidth] if @options[:maxwidth]
+        params[:maxheight] = @options[:maxheight] if @options[:maxheight]
+        obj = embedly_api.oembed(params)
+        obj[0].marshal_dump.each do |key, value|
+          self[key] = value
+        end
       end
     end
 

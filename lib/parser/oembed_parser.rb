@@ -73,7 +73,7 @@ module Widgetify
         params[:maxheight] = @options[:maxheight] if @options[:maxheight]
         obj = embedly_api.oembed(params)
         obj[0].marshal_dump.each do |key, value|
-          self[key] = value
+          self[key.to_s] = value
         end
       end
     end

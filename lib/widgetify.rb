@@ -47,6 +47,14 @@ module Widgetify
       @parse_result['twitter'] = Widgetify::TwitterParser.new(@html_doc) if @content_type.include?("text")
     end
 
+    def parse_facebook
+      if (@content_type.include?("text") && 
+          Widgetify::FacebookParser.parseable?(@options[:url]) &&
+          @options[:facebook_access_token])
+        @parse_result['facebook'] = Widgetify::FacebookParser.new(@options[:url], @options[:facebook_access_token])
+      end
+    end
+
     def parse_all
       parse_open_graph
       parse_oembed

@@ -1,6 +1,7 @@
 module Widgetify
   module Config
-    attr_accessor :embedly_key, :embedly_user_agent
+    attr_accessor :embedly_key, :embedly_user_agent,
+                  :facebook_app_id, :facebook_secret
 
     class << self
       def option_keys

@@ -1,9 +1,11 @@
 #Copyright (c) 2012, Kreeti Technologies All Rights Reserved.
 require 'nokogiri'
 require 'open-uri'
+require 'active_support/core_ext/hash/indifferent_access'
 
 module Widgetify
-  class Parser < Hash ###  this will be the base class
+  ###  this will be the base class
+  class Parser < ActiveSupport::HashWithIndifferentAccess
     def initialize(html_doc)
       @html_doc = html_doc
     end

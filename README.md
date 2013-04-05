@@ -84,3 +84,50 @@ Usage
 *   wordpress
 *   quickmeme
 *   twitter
+
+Object Type
+-----------
+
+Widgetify API call returns hash with the following information:
+
+```
+{
+  title: ...
+  source_url: ...
+  image_url: ...
+  site_name: ...
+  type: ...
+
+  images: [...]
+  videos: [...]
+
+  ...
+}
+```
+
+There are 2 object types currently supported: 'image', 'video'
+
+### Image
+
+```
+{
+  url: "http://ogp.me/logo.png",
+  width: 400,
+  height: 300
+
+  ...
+}
+```
+
+### Video
+
+```
+{
+  url: ...
+  width: 400
+  height: 300
+  html_code: "<iframe>...</iframe>"
+  thumbnail_url: ...
+
+  ...
+}

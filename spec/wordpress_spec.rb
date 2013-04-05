@@ -8,7 +8,7 @@ describe Widgetify::Base do
 
   it "checking the thumbnail height" do
     thumbnail_height = @widgetify.parse_result["oembed"]["thumbnail_height"]
-    thumbnail_height.should == 330
+    thumbnail_height.should == 328
   end
 
   it "checking the title" do
